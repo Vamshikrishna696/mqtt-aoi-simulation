@@ -1,5 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
+np.random.seed(1)
+
 
 N = 7
 K = 3
@@ -34,4 +36,6 @@ plt.xlabel("Time Slot")
 plt.ylabel("AoI")
 plt.title("AoI of Topic 7 under Round Robin Scheduling")
 plt.grid(True)
+plt.savefig("aoi_topic7_round_robin.png", dpi=300, bbox_inches="tight")
 plt.show()
+
