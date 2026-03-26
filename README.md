@@ -1,29 +1,80 @@
 # MQTT AoI Simulation
 
-This project implements and compares scheduling algorithms for minimizing Age of Information (AoI) in MQTT-based systems.
+This project studies **Age of Information (AoI)** minimization in an MQTT-like communication system.  
+AoI measures how fresh the received information is — lower AoI means more up-to-date data.
 
-## Overview
+The objective is to simulate and compare different scheduling strategies under limited transmission capacity.
 
-Age of Information (AoI) measures how fresh received data is. This project studies different scheduling strategies under limited transmission capacity.
+---
 
-## Implemented Algorithms
+## Project Objective
 
-- Round Robin Scheduling
-- Price-Based Scheduling (with adaptive lambda update)
-- Comparative analysis between both methods
+In MQTT systems, a broker cannot transmit all topics at every time slot due to limited capacity.  
+This leads to stale updates for some subscribers.
 
-## Project Structure
+This project aims to:
+- Model an MQTT-like topic-subscriber system
+- Track AoI evolution over time
+- Compare baseline and adaptive scheduling strategies
+- Evaluate how scheduling affects information freshness
 
-- `config.py` : simulation parameters  
-- `data/` : fixed subscription matrix  
-- `results/` : generated plots  
-- `src/` : implementation files  
-- `old_scripts/` : earlier versions  
+---
+
+## Implemented Methods
+
+### 1. Round Robin Scheduling
+A simple baseline approach that cycles through topics in a fixed order.  
+It ensures fairness but does not consider current AoI values.
+
+---
+
+### 2. Price-Based Scheduling (Whittle-inspired)
+An adaptive scheduling policy inspired by Whittle index theory.
+
+- Uses AoI values to prioritize updates  
+- Applies a lambda-based mechanism for decision making  
+- Selects topics dynamically instead of fixed rotation  
+
+---
+
+### 3. Comparative Evaluation
+Both methods are evaluated and compared using:
+- Average AoI  
+- Time evolution plots  
+- Performance comparison graphs  
+
+---
+
+## System Model
+
+The simulation parameters are:
+
+- Number of topics (N): 7  
+- Number of subscribers (K): 5  
+- Time horizon (T): 300  
+- Transmission success probability: 0.9  
+- Max transmissions per slot: 3  
+
+A fixed subscription matrix is used to ensure fair comparison.
+
+---
+
+## Repository Structure
+
+---
+
+## Main Files
+
+- `src/create_fixed_matrix.py` - generates subscription matrix  
+- `src/aoi_simulation.py` - Round Robin simulation  
+- `src/price_based_simulation.py` - adaptive scheduling  
+- `src/compare_algorithms.py` - comparison plots  
+- `src/utils.py` - helper functions  
+
+---
 
 ## How to Run
 
+### 1. Generate matrix
 ```bash
 python -m src.create_fixed_matrix
-python -m src.aoi_simulation
-python -m src.price_based_simulation
-python -m src.compare_algorithms
